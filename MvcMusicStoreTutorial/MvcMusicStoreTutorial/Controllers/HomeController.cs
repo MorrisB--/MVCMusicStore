@@ -8,9 +8,9 @@ namespace MvcMusicStoreTutorial.Controllers
 {
     public class HomeController : Controller
     {
-        public String Index()
+        public ActionResult Index()
         {
-            return "Hello from Home";
+            return View();
         }
 
         public ActionResult About()
