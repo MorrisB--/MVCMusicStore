@@ -3,29 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcMusicStoreTutorial.Models;
 
-namespace MvcMusicStoreTutorial.Controllers
-{
-    public class StoreController : Controller
-    {
+namespace MvcMusicStoreTutorial.Controllers {
+    public class StoreController : Controller {
+
+        MusicStoreEntities storeDB = new MusicStoreEntities();
+
         // GET: Store
-        public String Index()
-        {
-            return "Hello from Store.Index()";
+        public ActionResult Index() {
+            var genres = storeDB.Genres.ToList();
+            return View(genres);
         }
 
         // GET: /Store/Browse?genre=Dicso
-        public String Browse(string genre)
-        {
-            String message = HttpUtility.HtmlEncode("Store.Browse, Genre = " + genre);
-            return message; 
+        public ActionResult Browse(string genre) {
+            // Retrieve Genre and its Associated Albums from database
+            var genreModel = storeDB.Genres.Include("Albums").Single(g => g.Name == genre);
+            return View(genreModel);
         }
 
         // GET: /Store/Details/5
-        public String Details(int id)
-        {
-            String message = "Store.Details, ID = " + id;
-            return message; 
+        public ActionResult Details(int id) {
+            var album = storeDB.Albums.Find(id);
+            return View(album);
         }
+
+
+
     }
 }
