@@ -12,6 +12,7 @@ namespace MVCMusicStore_Team8
     {
         protected void Application_Start()
         {
+            System.Data.Entity.Database.SetInitializer(new MVCMusicStore_Team8.Models.SampleData());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
